@@ -13,7 +13,7 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    task_1();
+    task_2();
 
     return 0;
 }
@@ -58,4 +58,28 @@ void task_1()
     delete[]array;
     delete[]first_half_array;
     delete[]second_half_array;
+}
+
+void task_2()
+{
+    int length = 10;
+    int* array_1 = new int[length];
+    fill_array(array_1, length);
+    cout << "Массив 1:\t";
+    show_array(array_1, length);
+    int* array_2 = new int[length];
+    fill_array(array_2, length);
+    cout << "Массив 2:\t";
+    show_array(array_2, length);
+    int* array = new int[length * 2];
+    for (int i = 0; i < length * 2; i++)
+    {
+        if (i < length) array[i] = array_1[i];
+        else array[i] = array_2[i - length];
+    }
+    cout << "Объединенный массив:\t";
+    show_array(array, length * 2);
+    delete[]array_1;
+    delete[]array_2;
+    delete[]array;
 }
