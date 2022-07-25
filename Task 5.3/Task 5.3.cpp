@@ -8,12 +8,13 @@ void task_2();
 void task_3();
 void fill_array(int* array, int length);
 void show_array(int* array, int length);
+void menu();
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    task_2();
+    menu();
 
     return 0;
 }
@@ -82,4 +83,57 @@ void task_2()
     delete[]array_1;
     delete[]array_2;
     delete[]array;
+}
+
+void task_3()
+{
+    struct week
+    {
+        string day;
+        int expenses;
+    };
+    string days_in_week[7] = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" };
+    week expenses_per_week[7];
+    double average = 0;
+    int sum = 0, number_of_overdraft = 0;
+    for (int i = 0; i < 7; i++)
+    {
+        expenses_per_week[i].day = days_in_week[i];
+    }
+    cout << "Введите расходы по дням:\n\n";
+    for (int i = 0; i < 7; i++)
+    {
+        cout << expenses_per_week[i].day << ": ";
+        cin >> expenses_per_week[i].expenses;
+        cout << "\n";
+        sum += expenses_per_week[i].expenses;
+        (expenses_per_week[i].expenses > 100) ? number_of_overdraft++ : number_of_overdraft;
+    }
+    average = sum / 7;
+    cout << "\nСредний расход за неделю: " << average << endl;
+    cout << "Общая потраченная сумма: " << sum << endl;
+    cout << "Количество дней, когда расход превысил 100: " << number_of_overdraft << endl;
+    if (number_of_overdraft)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            if (expenses_per_week[i].expenses > 100) cout << expenses_per_week[i].day << "\t" << expenses_per_week[i].expenses << endl;
+        }
+    }
+}
+
+void menu()
+{
+    int task = 0;
+    void(*list_of_menu[3])() = { task_1, task_2, task_3 };
+    cout << "ЗАДАЧА № 4 НЕ РЕАЛИЗОВАНА ПО ПРИЧИНЕ НЕПОНЯТНО ЧЕГО ОТ МЕНЯ ХОТЯТ\n\n";
+    do
+    {
+        do
+        {
+            cout << "Введите номер задачи, 0 - выход: ";
+            cin >> task;
+        } while (task < 0 or task > 3);
+        if (task) list_of_menu[task - 1]();
+    } while (task);
 }
